@@ -1,0 +1,551 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="QuiztoolModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AnswerMultipleChoice">
+          <Key>
+            <PropertyRef Name="QuestionId" />
+            <PropertyRef Name="AnswerId" />
+          </Key>
+          <Property Name="QuestionId" Type="int" Nullable="false" />
+          <Property Name="AnswerId" Type="tinyint" Nullable="false" />
+          <Property Name="AnswerText" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="IsCorrect" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AnswerOpen">
+          <Key>
+            <PropertyRef Name="QuestionId" />
+          </Key>
+          <Property Name="QuestionId" Type="int" Nullable="false" />
+          <Property Name="AnswerText" Type="varchar" MaxLength="64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Exam">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="Timelimit" Type="smallint" />
+          <Property Name="Minimumscore" Type="smallint" />
+          <Property Name="GenerateMethod" Type="tinyint" Nullable="false" />
+          <Property Name="GenerateInput" Type="smallint" Nullable="false" />
+          <Property Name="MinimumTopicsPassed" Type="tinyint" />
+          <Property Name="IsHidden" Type="bit" Nullable="false" />
+          <Property Name="SubjectId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ExamTopic">
+          <Key>
+            <PropertyRef Name="ExamId" />
+            <PropertyRef Name="TopicId" />
+          </Key>
+          <Property Name="ExamId" Type="int" Nullable="false" />
+          <Property Name="TopicId" Type="int" Nullable="false" />
+          <Property Name="NumberOfQuestions" Type="smallint" />
+          <Property Name="MinimumScore" Type="smallint" />
+        </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="QuestionText" Type="text" Nullable="false" />
+          <Property Name="Codeblock" Type="text" />
+          <Property Name="QuestionType" Type="tinyint" Nullable="false" />
+          <Property Name="Weight" Type="tinyint" Nullable="false" />
+          <Property Name="TopicId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Subject">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Teacher">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="PasswordResetCode" Type="varchar" MaxLength="64" />
+        </EntityType>
+        <EntityType Name="Topic">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="SubjectId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_AnswerMultipleChoice_QuestionId">
+          <End Role="Question" Type="Self.Question" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AnswerMultipleChoice" Type="Self.AnswerMultipleChoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AnswerMultipleChoice">
+              <PropertyRef Name="QuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AnswerOpen_QuestionId">
+          <End Role="Question" Type="Self.Question" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AnswerOpen" Type="Self.AnswerOpen" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AnswerOpen">
+              <PropertyRef Name="QuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Exam_Subject">
+          <End Role="Subject" Type="Self.Subject" Multiplicity="1" />
+          <End Role="Exam" Type="Self.Exam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subject">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Exam">
+              <PropertyRef Name="SubjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ExamTopic_ExamId">
+          <End Role="Exam" Type="Self.Exam" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ExamTopic" Type="Self.ExamTopic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exam">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ExamTopic">
+              <PropertyRef Name="ExamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ExamTopic_TopicId">
+          <End Role="Topic" Type="Self.Topic" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ExamTopic" Type="Self.ExamTopic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Topic">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ExamTopic">
+              <PropertyRef Name="TopicId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Question_TopicId">
+          <End Role="Topic" Type="Self.Topic" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Question" Type="Self.Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Topic">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Question">
+              <PropertyRef Name="TopicId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Topic_Subject">
+          <End Role="Subject" Type="Self.Subject" Multiplicity="1" />
+          <End Role="Topic" Type="Self.Topic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subject">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Topic">
+              <PropertyRef Name="SubjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="QuiztoolModelStoreContainer">
+          <EntitySet Name="AnswerMultipleChoice" EntityType="Self.AnswerMultipleChoice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AnswerOpen" EntityType="Self.AnswerOpen" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Exam" EntityType="Self.Exam" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ExamTopic" EntityType="Self.ExamTopic" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Question" EntityType="Self.Question" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Subject" EntityType="Self.Subject" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Teacher" EntityType="Self.Teacher" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Topic" EntityType="Self.Topic" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AnswerMultipleChoice_QuestionId" Association="Self.FK_AnswerMultipleChoice_QuestionId">
+            <End Role="Question" EntitySet="Question" />
+            <End Role="AnswerMultipleChoice" EntitySet="AnswerMultipleChoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AnswerOpen_QuestionId" Association="Self.FK_AnswerOpen_QuestionId">
+            <End Role="Question" EntitySet="Question" />
+            <End Role="AnswerOpen" EntitySet="AnswerOpen" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Exam_Subject" Association="Self.FK_Exam_Subject">
+            <End Role="Subject" EntitySet="Subject" />
+            <End Role="Exam" EntitySet="Exam" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ExamTopic_ExamId" Association="Self.FK_ExamTopic_ExamId">
+            <End Role="Exam" EntitySet="Exam" />
+            <End Role="ExamTopic" EntitySet="ExamTopic" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ExamTopic_TopicId" Association="Self.FK_ExamTopic_TopicId">
+            <End Role="Topic" EntitySet="Topic" />
+            <End Role="ExamTopic" EntitySet="ExamTopic" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Question_TopicId" Association="Self.FK_Question_TopicId">
+            <End Role="Topic" EntitySet="Topic" />
+            <End Role="Question" EntitySet="Question" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Topic_Subject" Association="Self.FK_Topic_Subject">
+            <End Role="Subject" EntitySet="Subject" />
+            <End Role="Topic" EntitySet="Topic" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="QuiztoolModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AnswerMultipleChoice">
+          <Key>
+            <PropertyRef Name="QuestionId" />
+            <PropertyRef Name="AnswerId" />
+          </Key>
+          <Property Name="QuestionId" Type="Int32" Nullable="false" />
+          <Property Name="AnswerId" Type="Byte" Nullable="false" />
+          <Property Name="AnswerText" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsCorrect" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Question" Relationship="Self.FK_AnswerMultipleChoice_QuestionId" FromRole="AnswerMultipleChoice" ToRole="Question" />
+        </EntityType>
+        <EntityType Name="AnswerOpen">
+          <Key>
+            <PropertyRef Name="QuestionId" />
+          </Key>
+          <Property Name="QuestionId" Type="Int32" Nullable="false" />
+          <Property Name="AnswerText" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Question" Relationship="Self.FK_AnswerOpen_QuestionId" FromRole="AnswerOpen" ToRole="Question" />
+        </EntityType>
+        <EntityType Name="Exam">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Timelimit" Type="Int16" />
+          <Property Name="Minimumscore" Type="Int16" />
+          <Property Name="GenerateMethod" Type="Byte" Nullable="false" />
+          <Property Name="GenerateInput" Type="Int16" Nullable="false" />
+          <Property Name="MinimumTopicsPassed" Type="Byte" />
+          <Property Name="IsHidden" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Subject" Relationship="Self.FK_Exam_Subject" FromRole="Exam" ToRole="Subject" />
+          <NavigationProperty Name="ExamTopics" Relationship="Self.FK_ExamTopic_ExamId" FromRole="Exam" ToRole="ExamTopic" />
+        </EntityType>
+        <EntityType Name="ExamTopic">
+          <Key>
+            <PropertyRef Name="ExamId" />
+            <PropertyRef Name="TopicId" />
+          </Key>
+          <Property Name="ExamId" Type="Int32" Nullable="false" />
+          <Property Name="TopicId" Type="Int32" Nullable="false" />
+          <Property Name="NumberOfQuestions" Type="Int16" />
+          <Property Name="MinimumScore" Type="Int16" />
+          <NavigationProperty Name="Exam" Relationship="Self.FK_ExamTopic_ExamId" FromRole="ExamTopic" ToRole="Exam" />
+          <NavigationProperty Name="Topic" Relationship="Self.FK_ExamTopic_TopicId" FromRole="ExamTopic" ToRole="Topic" />
+        </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="QuestionText" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Codeblock" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="QuestionType" Type="Byte" Nullable="false" />
+          <Property Name="Weight" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="AnswerMultipleChoices" Relationship="Self.FK_AnswerMultipleChoice_QuestionId" FromRole="Question" ToRole="AnswerMultipleChoice" />
+          <NavigationProperty Name="AnswerOpen" Relationship="Self.FK_AnswerOpen_QuestionId" FromRole="Question" ToRole="AnswerOpen" />
+          <NavigationProperty Name="Topic" Relationship="Self.FK_Question_TopicId" FromRole="Question" ToRole="Topic" />
+        </EntityType>
+        <EntityType Name="Subject">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Exams" Relationship="Self.FK_Exam_Subject" FromRole="Subject" ToRole="Exam" />
+          <NavigationProperty Name="Topics" Relationship="Self.FK_Topic_Subject" FromRole="Subject" ToRole="Topic" />
+        </EntityType>
+        <EntityType Name="Teacher">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PasswordResetCode" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Topic">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ExamTopics" Relationship="Self.FK_ExamTopic_TopicId" FromRole="Topic" ToRole="ExamTopic" />
+          <NavigationProperty Name="Questions" Relationship="Self.FK_Question_TopicId" FromRole="Topic" ToRole="Question" />
+          <NavigationProperty Name="Subject" Relationship="Self.FK_Topic_Subject" FromRole="Topic" ToRole="Subject" />
+        </EntityType>
+        <Association Name="FK_AnswerMultipleChoice_QuestionId">
+          <End Role="Question" Type="Self.Question" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AnswerMultipleChoice" Type="Self.AnswerMultipleChoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AnswerMultipleChoice">
+              <PropertyRef Name="QuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AnswerOpen_QuestionId">
+          <End Role="Question" Type="Self.Question" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AnswerOpen" Type="Self.AnswerOpen" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AnswerOpen">
+              <PropertyRef Name="QuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Exam_Subject">
+          <End Role="Subject" Type="Self.Subject" Multiplicity="1" />
+          <End Role="Exam" Type="Self.Exam" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_ExamTopic_ExamId">
+          <End Role="Exam" Type="Self.Exam" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ExamTopic" Type="Self.ExamTopic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exam">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ExamTopic">
+              <PropertyRef Name="ExamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ExamTopic_TopicId">
+          <End Role="Topic" Type="Self.Topic" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ExamTopic" Type="Self.ExamTopic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Topic">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ExamTopic">
+              <PropertyRef Name="TopicId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Question_TopicId">
+          <End Role="Topic" Type="Self.Topic" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Question" Type="Self.Question" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_Topic_Subject">
+          <End Role="Subject" Type="Self.Subject" Multiplicity="1" />
+          <End Role="Topic" Type="Self.Topic" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="QuiztoolEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AnswerMultipleChoices" EntityType="Self.AnswerMultipleChoice" />
+          <EntitySet Name="AnswerOpens" EntityType="Self.AnswerOpen" />
+          <EntitySet Name="Exams" EntityType="Self.Exam" />
+          <EntitySet Name="ExamTopics" EntityType="Self.ExamTopic" />
+          <EntitySet Name="Questions" EntityType="Self.Question" />
+          <EntitySet Name="Subjects" EntityType="Self.Subject" />
+          <EntitySet Name="Teachers" EntityType="Self.Teacher" />
+          <EntitySet Name="Topics" EntityType="Self.Topic" />
+          <AssociationSet Name="FK_AnswerMultipleChoice_QuestionId" Association="Self.FK_AnswerMultipleChoice_QuestionId">
+            <End Role="Question" EntitySet="Questions" />
+            <End Role="AnswerMultipleChoice" EntitySet="AnswerMultipleChoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AnswerOpen_QuestionId" Association="Self.FK_AnswerOpen_QuestionId">
+            <End Role="Question" EntitySet="Questions" />
+            <End Role="AnswerOpen" EntitySet="AnswerOpens" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Exam_Subject" Association="Self.FK_Exam_Subject">
+            <End Role="Subject" EntitySet="Subjects" />
+            <End Role="Exam" EntitySet="Exams" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ExamTopic_ExamId" Association="Self.FK_ExamTopic_ExamId">
+            <End Role="Exam" EntitySet="Exams" />
+            <End Role="ExamTopic" EntitySet="ExamTopics" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ExamTopic_TopicId" Association="Self.FK_ExamTopic_TopicId">
+            <End Role="Topic" EntitySet="Topics" />
+            <End Role="ExamTopic" EntitySet="ExamTopics" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Question_TopicId" Association="Self.FK_Question_TopicId">
+            <End Role="Topic" EntitySet="Topics" />
+            <End Role="Question" EntitySet="Questions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Topic_Subject" Association="Self.FK_Topic_Subject">
+            <End Role="Subject" EntitySet="Subjects" />
+            <End Role="Topic" EntitySet="Topics" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="QuiztoolModelStoreContainer" CdmEntityContainer="QuiztoolEntities1">
+          <EntitySetMapping Name="AnswerMultipleChoices">
+            <EntityTypeMapping TypeName="QuiztoolModel.AnswerMultipleChoice">
+              <MappingFragment StoreEntitySet="AnswerMultipleChoice">
+                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+                <ScalarProperty Name="AnswerId" ColumnName="AnswerId" />
+                <ScalarProperty Name="AnswerText" ColumnName="AnswerText" />
+                <ScalarProperty Name="IsCorrect" ColumnName="IsCorrect" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AnswerOpens">
+            <EntityTypeMapping TypeName="QuiztoolModel.AnswerOpen">
+              <MappingFragment StoreEntitySet="AnswerOpen">
+                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+                <ScalarProperty Name="AnswerText" ColumnName="AnswerText" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Exams">
+            <EntityTypeMapping TypeName="QuiztoolModel.Exam">
+              <MappingFragment StoreEntitySet="Exam">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Timelimit" ColumnName="Timelimit" />
+                <ScalarProperty Name="Minimumscore" ColumnName="Minimumscore" />
+                <ScalarProperty Name="GenerateMethod" ColumnName="GenerateMethod" />
+                <ScalarProperty Name="GenerateInput" ColumnName="GenerateInput" />
+                <ScalarProperty Name="MinimumTopicsPassed" ColumnName="MinimumTopicsPassed" />
+                <ScalarProperty Name="IsHidden" ColumnName="IsHidden" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExamTopics">
+            <EntityTypeMapping TypeName="QuiztoolModel.ExamTopic">
+              <MappingFragment StoreEntitySet="ExamTopic">
+                <ScalarProperty Name="ExamId" ColumnName="ExamId" />
+                <ScalarProperty Name="TopicId" ColumnName="TopicId" />
+                <ScalarProperty Name="NumberOfQuestions" ColumnName="NumberOfQuestions" />
+                <ScalarProperty Name="MinimumScore" ColumnName="MinimumScore" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Questions">
+            <EntityTypeMapping TypeName="QuiztoolModel.Question">
+              <MappingFragment StoreEntitySet="Question">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="QuestionText" ColumnName="QuestionText" />
+                <ScalarProperty Name="Codeblock" ColumnName="Codeblock" />
+                <ScalarProperty Name="QuestionType" ColumnName="QuestionType" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Subjects">
+            <EntityTypeMapping TypeName="QuiztoolModel.Subject">
+              <MappingFragment StoreEntitySet="Subject">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Teachers">
+            <EntityTypeMapping TypeName="QuiztoolModel.Teacher">
+              <MappingFragment StoreEntitySet="Teacher">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="PasswordResetCode" ColumnName="PasswordResetCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Topics">
+            <EntityTypeMapping TypeName="QuiztoolModel.Topic">
+              <MappingFragment StoreEntitySet="Topic">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="FK_Exam_Subject" TypeName="QuiztoolModel.FK_Exam_Subject" StoreEntitySet="Exam">
+            <EndProperty Name="Subject">
+              <ScalarProperty Name="Id" ColumnName="SubjectId" />
+            </EndProperty>
+            <EndProperty Name="Exam">
+              <ScalarProperty Name="Id" ColumnName="Id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_Question_TopicId" TypeName="QuiztoolModel.FK_Question_TopicId" StoreEntitySet="Question">
+            <EndProperty Name="Topic">
+              <ScalarProperty Name="Id" ColumnName="TopicId" />
+            </EndProperty>
+            <EndProperty Name="Question">
+              <ScalarProperty Name="Id" ColumnName="Id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_Topic_Subject" TypeName="QuiztoolModel.FK_Topic_Subject" StoreEntitySet="Topic">
+            <EndProperty Name="Subject">
+              <ScalarProperty Name="Id" ColumnName="SubjectId" />
+            </EndProperty>
+            <EndProperty Name="Topic">
+              <ScalarProperty Name="Id" ColumnName="Id" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="false" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
