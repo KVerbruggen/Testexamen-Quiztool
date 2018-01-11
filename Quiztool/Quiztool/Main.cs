@@ -23,7 +23,8 @@ namespace Quiztool
 
         public static bool Login(string username, string password)
         {
-            if(dbManager.Login(username, password))
+            String hashedPassword = BitConverter.ToString(Main.hashManager.ComputeHash(Encoding.Default.GetBytes(password))).Replace("-", string.Empty);
+            if (dbManager.Login(username, hashedPassword))
             {
                 User = username;
                 return true;

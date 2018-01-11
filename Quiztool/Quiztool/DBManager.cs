@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Core.Objects;
-using System.Security.Cryptography;
 
 namespace Quiztool
 {
@@ -20,9 +19,8 @@ namespace Quiztool
             qte = new QuiztoolEntities1();
         }
 
-        public bool Login(string username, string password)
+        public bool Login(string username, string hashedPassword)
         {
-            String hashedPassword = BitConverter.ToString(Main.hashManager.ComputeHash(Encoding.Default.GetBytes(password))).Replace("-", string.Empty);
             return (
                 from teacher in qte.Teachers
                 where teacher.Name.Equals(username) && teacher.Password.Equals(hashedPassword)
