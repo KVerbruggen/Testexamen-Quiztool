@@ -26,9 +26,22 @@ namespace Quiztool
             lblLoggedInAs.Content = "Ingelogd als: " + Main.User;
         }
 
-        private void btTeacherLogin_Click(object sender, RoutedEventArgs e)
+        private void LoadSubjects()
+        {
+            foreach(Subject subject in Main.dbManager.GetSubjects())
+            {
+                lbSubjects.Items.Add(subject);
+            }
+        }
+
+        private void btLogout_Click(object sender, RoutedEventArgs e)
         {
             ((NavigationWindow)Application.Current.MainWindow).Navigate(new Login());
+        }
+
+        private void btDeleteSubject_Click(object sender, RoutedEventArgs e)
+        {
+            Main.dbManager.DeleteSubject((Subject)lbSubjects.SelectedItem);
         }
     }
 }

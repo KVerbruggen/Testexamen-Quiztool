@@ -28,5 +28,10 @@ namespace Quiztool
         public virtual ICollection<Exam> Exams { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Topic> Topics { get; set; }
+
+        public override string ToString()
+        {
+            return this.Name;
+        }
     }
 }

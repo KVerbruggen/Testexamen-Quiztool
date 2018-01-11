@@ -12,20 +12,34 @@ namespace Quiztool
 {
     public class DBManager
     {
-        private QuiztoolEntities1 qte;
+        private QuiztoolEntities1 db;
 
         public DBManager()
         {
-            qte = new QuiztoolEntities1();
+            db = new QuiztoolEntities1();
         }
 
         public bool Login(string username, string hashedPassword)
         {
             return (
-                from teacher in qte.Teachers
-                where teacher.Name.Equals(username) && teacher.Password.Equals(hashedPassword)
-                select teacher
+                from Teacher in db.Teachers
+                where Teacher.Name.Equals(username) && Teacher.Password.Equals(hashedPassword)
+                select Teacher
             ).Any();
+        }
+
+        public List<Subject> GetSubjects()
+        {
+            return (
+                from Subject in db.Subjects
+                select Subject
+            ).ToList();
+        }
+
+        public void DeleteSubject(Subject subject)
+        {
+            db.Subjects.Remove(subject);
+            db.SaveChanges();
         }
 
     }
