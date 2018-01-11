@@ -6,8 +6,8 @@
       xmlns:local="clr-namespace:Quiztool"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
-      Title="Testexamen-Quiztool" Width="500" Height="505">
-    <Grid Width="500" Height="500">
+      Title="Testexamen-Quiztool" Width="600" Height="505">
+    <Grid Width="600" Height="500">
         <Grid.RowDefinitions>
             <RowDefinition MaxHeight="120"/>
             <RowDefinition/>
@@ -16,7 +16,7 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Image x:Name="logo" HorizontalAlignment="Right" Height="100" VerticalAlignment="Bottom" Width="100" Source="resources/logo.png"/>
+        <Image x:Name="Logo" HorizontalAlignment="Right" Height="100" VerticalAlignment="Bottom" Width="100" Source="resources/logo.png"/>
         <Label x:Name="Apptitle" Content="Testexamen&#10;Quiztool" HorizontalAlignment="Left" Margin="5,36,0,0" VerticalAlignment="Top" Grid.Column="1" FontSize="24" FontWeight="Bold"/>
         <Button x:Name="btLogout" Content="Log uit" Grid.Column="1" HorizontalAlignment="Left" Margin="190,10,0,0" VerticalAlignment="Top" Width="50" Background="White" Height="23" Click="btLogout_Click"/>
         <Label x:Name="lblLoggedInAs" Content="Ingelogd als: " Grid.Column="1" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="175" HorizontalContentAlignment="Right"/>
@@ -26,8 +26,8 @@
                 <ListBox x:Name="lbSubjects"/>
             </Border>
             <StackPanel DockPanel.Dock="Right" Height="Auto" VerticalAlignment="Top" Grid.Column="1" Grid.Row="1">
-                <Button x:Name="btManageSubject" Content="Beheer Vak" Width="100" Height="30" VerticalAlignment="Top" Margin="0,0,0,10" Background="#FF51A8FF" BorderBrush="#FF3C7EC0" Foreground="#FFFFFF" FontWeight="Bold"/>
-                <Button x:Name="btAddSubject" Content="Voeg Vak Toe" Width="100" Height="30" VerticalAlignment="Top" Margin="0,0,0,10" Background="#FF51A8FF" BorderBrush="#FF3C7EC0" Foreground="#FFFFFF" FontWeight="Bold"/>
+                <Button x:Name="btManageSubject" Content="Beheer Vak" Width="100" Height="30" VerticalAlignment="Top" Margin="0,0,0,10" Background="#FF51A8FF" BorderBrush="#FF3C7EC0" Foreground="#FFFFFF" FontWeight="Bold" Click="btManageSubject_Click"/>
+                <Button x:Name="btAddSubject" Content="Voeg Vak Toe" Width="100" Height="30" VerticalAlignment="Top" Margin="0,0,0,10" Background="#FF51A8FF" BorderBrush="#FF3C7EC0" Foreground="#FFFFFF" FontWeight="Bold" Click="btAddSubject_Click"/>
                 <Button x:Name="btDeleteSubject" Content="Verwijder Vak" Width="100" Height="30" VerticalAlignment="Top" Background="#FF51A8FF" BorderBrush="#FF3C7EC0" Foreground="#FFFFFF" FontWeight="Bold" Click="btDeleteSubject_Click"/>
             </StackPanel>
         </DockPanel>

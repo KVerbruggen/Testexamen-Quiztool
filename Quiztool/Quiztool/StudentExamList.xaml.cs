@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 namespace Quiztool
 {
     /// <summary>
-    /// Interaction logic for ExamList.xaml
+    /// Interaction logic for StudentExamList.xaml
     /// </summary>
     public partial class StudentExamList : Page
     {

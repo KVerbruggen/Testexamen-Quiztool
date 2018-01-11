@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 namespace Quiztool
 {
     /// <summary>
-    /// Interaction logic for ExamList.xaml
+    /// Interaction logic for TeacherSubjectList.xaml
     /// </summary>
     public partial class TeacherSubjectList : Page
     {
@@ -28,7 +28,7 @@ namespace Quiztool
 
         private void LoadSubjects()
         {
-            foreach(Subject subject in Main.dbManager.GetSubjects())
+            foreach(Subject subject in Main.db.GetSubjects())
             {
                 lbSubjects.Items.Add(subject);
             }
@@ -36,12 +36,24 @@ namespace Quiztool
 
         private void btLogout_Click(object sender, RoutedEventArgs e)
         {
+            Main.Logout();
             ((NavigationWindow)Application.Current.MainWindow).Navigate(new Login());
         }
 
         private void btDeleteSubject_Click(object sender, RoutedEventArgs e)
         {
-            Main.dbManager.DeleteSubject((Subject)lbSubjects.SelectedItem);
+            Main.db.DeleteSubject((Subject)lbSubjects.SelectedItem);
+            Main.db.Save();
+        }
+
+        private void btManageSubject_Click(object sender, RoutedEventArgs e)
+        {
+            ((NavigationWindow)Application.Current.MainWindow).Navigate(new TeacherSubjectInfo((Subject)lbSubjects.SelectedItem));
+        }
+
+        private void btAddSubject_Click(object sender, RoutedEventArgs e)
+        {
+            ((NavigationWindow)Application.Current.MainWindow).Navigate(new TeacherSubjectInfo());
         }
     }
 }

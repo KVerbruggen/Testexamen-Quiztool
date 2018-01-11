@@ -6,8 +6,8 @@
       xmlns:local="clr-namespace:Quiztool"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
-      Title="Testexamen-Quiztool" Width="500" Height="505">
-    <Grid Width="500" Height="500">
+      Title="Testexamen-Quiztool" Width="600" Height="505">
+    <Grid Width="600" Height="500">
         <Grid.RowDefinitions>
             <RowDefinition MaxHeight="120"/>
             <RowDefinition/>
@@ -16,7 +16,7 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Image x:Name="logo" HorizontalAlignment="Right" Height="100" VerticalAlignment="Bottom" Width="100" Source="resources/logo.png"/>
+        <Image x:Name="Logo" HorizontalAlignment="Right" Height="100" VerticalAlignment="Bottom" Width="100" Source="resources/logo.png"/>
         <Label x:Name="Apptitle" Content="Testexamen&#10;Quiztool" HorizontalAlignment="Left" Margin="5,36,0,0" VerticalAlignment="Top" Grid.Column="1" FontSize="24" FontWeight="Bold"/>
         <Button x:Name="btTeacherLogin" Content="Terug" Grid.Column="1" HorizontalAlignment="Left" Margin="190,10,0,0" VerticalAlignment="Top" Width="50" Background="White" Height="23" Click="btTeacherLogin_Click"/>
 

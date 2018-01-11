@@ -18,7 +18,7 @@ CREATE TABLE Teacher (
 	Id					INT IDENTITY PRIMARY KEY,
 	Name				VARCHAR(256) UNIQUE NOT NULL,
 	Email				VARCHAR(256) NOT NULL,
-	Password			VARCHAR(256) NOT NULL,
+	Password			VARCHAR(256) NOT NULL, -- String portraying a hex value of an AES256-encrypted password
 	PasswordResetCode	VARCHAR(64) DEFAULT NULL
 );
 
