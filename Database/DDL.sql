@@ -144,39 +144,25 @@ CREATE TABLE Question (
 );
 
 /*
-	TABLE AnswerMultipleChoice
+	TABLE Answer
 */
-CREATE TABLE AnswerMultipleChoice (
+CREATE TABLE Answer (
 	QuestionId			INT NOT NULL,
 	AnswerId			TINYINT NOT NULL,
 	AnswerText			VARCHAR(128) NOT NULL,
 	IsCorrect			BIT NOT NULL,
 	
-	CONSTRAINT PK_AnswerMultipleChoice
+	CONSTRAINT PK_Answer
 		PRIMARY KEY (QuestionId, AnswerId),
 	
-	CONSTRAINT FK_AnswerMultipleChoice_QuestionId
+	CONSTRAINT FK_Answer_QuestionId
 		FOREIGN KEY (QuestionId)
 		REFERENCES Question(Id)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE,
 	
-	CONSTRAINT U_AnswerMultipleChoice_UniqueAnswer
+	CONSTRAINT U_Answer_UniqueAnswer
 		UNIQUE(QuestionId, AnswerText)
-);
-
-/*
-	TABLE AnswerOpen
-*/
-CREATE TABLE AnswerOpen (
-	QuestionId			INT NOT NULL PRIMARY KEY,
-	AnswerText			VARCHAR(64) NOT NULL,
-	
-	CONSTRAINT FK_AnswerOpen_QuestionId
-		FOREIGN KEY (QuestionId)
-		REFERENCES Question(Id)
-		ON DELETE CASCADE
-		ON UPDATE CASCADE
 );
 
 /*

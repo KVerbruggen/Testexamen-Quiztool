@@ -11,11 +11,29 @@ namespace Quiztool
     {
         public static DBManager dbManager;
         public static SHA256CryptoServiceProvider hashManager;
+
+        public static string User { get; private set; }
         
         static Main()
         {
             dbManager = new DBManager();
             hashManager = new SHA256CryptoServiceProvider();
+            User = String.Empty;
+        }
+
+        public static bool Login(string username, string password)
+        {
+            if(dbManager.Login(username, password))
+            {
+                User = username;
+                return true;
+            }
+            return false;
+        }
+
+        public static void Logout()
+        {
+            User = String.Empty;
         }
     }
 }

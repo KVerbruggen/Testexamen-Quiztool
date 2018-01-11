@@ -23,6 +23,7 @@ namespace Quiztool
         public TeacherSubjectList()
         {
             InitializeComponent();
+            lblLoggedInAs.Content = "Ingelogd als: " + Main.User;
         }
 
         private void btTeacherLogin_Click(object sender, RoutedEventArgs e)

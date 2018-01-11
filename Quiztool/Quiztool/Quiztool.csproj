@@ -68,10 +68,7 @@
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
-    <Compile Include="AnswerMultipleChoice.cs">
-      <DependentUpon>EDMQuiztool.tt</DependentUpon>
-    </Compile>
-    <Compile Include="AnswerOpen.cs">
+    <Compile Include="Answer.cs">
       <DependentUpon>EDMQuiztool.tt</DependentUpon>
     </Compile>
     <Compile Include="DBManager.cs" />

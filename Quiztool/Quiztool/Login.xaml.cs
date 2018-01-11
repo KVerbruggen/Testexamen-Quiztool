@@ -32,7 +32,7 @@ namespace Quiztool
 
         private void btLogin_Click(object sender, RoutedEventArgs e)
         {
-            if (Main.dbManager.Login(tbName.Text, tbPassword.Password))
+            if (Main.Login(tbName.Text, tbPassword.Password))
             {
                 ((NavigationWindow)Application.Current.MainWindow).Navigate(new TeacherSubjectList());
             }

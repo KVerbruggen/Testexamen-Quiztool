@@ -4,8 +4,8 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="QuiztoolModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="AnswerMultipleChoice">
+    <Schema Namespace="QuiztoolModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Answer">
           <Key>
             <PropertyRef Name="QuestionId" />
             <PropertyRef Name="AnswerId" />
@@ -14,13 +14,6 @@
           <Property Name="AnswerId" Type="tinyint" Nullable="false" />
           <Property Name="AnswerText" Type="varchar" MaxLength="128" Nullable="false" />
           <Property Name="IsCorrect" Type="bit" Nullable="false" />
-        </EntityType>
-        <EntityType Name="AnswerOpen">
-          <Key>
-            <PropertyRef Name="QuestionId" />
-          </Key>
-          <Property Name="QuestionId" Type="int" Nullable="false" />
-          <Property Name="AnswerText" Type="varchar" MaxLength="64" Nullable="false" />
         </EntityType>
         <EntityType Name="Exam">
           <Key>
@@ -82,30 +75,16 @@
           <Property Name="Name" Type="varchar" MaxLength="256" Nullable="false" />
           <Property Name="SubjectId" Type="int" Nullable="false" />
         </EntityType>
-        <Association Name="FK_AnswerMultipleChoice_QuestionId">
+        <Association Name="FK_Answer_QuestionId">
           <End Role="Question" Type="Self.Question" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="AnswerMultipleChoice" Type="Self.AnswerMultipleChoice" Multiplicity="*" />
+          <End Role="Answer" Type="Self.Answer" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Question">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="AnswerMultipleChoice">
-              <PropertyRef Name="QuestionId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_AnswerOpen_QuestionId">
-          <End Role="Question" Type="Self.Question" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="AnswerOpen" Type="Self.AnswerOpen" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Question">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="AnswerOpen">
+            <Dependent Role="Answer">
               <PropertyRef Name="QuestionId" />
             </Dependent>
           </ReferentialConstraint>
@@ -177,21 +156,16 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="QuiztoolModelStoreContainer">
-          <EntitySet Name="AnswerMultipleChoice" EntityType="Self.AnswerMultipleChoice" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="AnswerOpen" EntityType="Self.AnswerOpen" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Answer" EntityType="Self.Answer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Exam" EntityType="Self.Exam" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ExamTopic" EntityType="Self.ExamTopic" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Question" EntityType="Self.Question" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Subject" EntityType="Self.Subject" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Teacher" EntityType="Self.Teacher" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Topic" EntityType="Self.Topic" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_AnswerMultipleChoice_QuestionId" Association="Self.FK_AnswerMultipleChoice_QuestionId">
+          <AssociationSet Name="FK_Answer_QuestionId" Association="Self.FK_Answer_QuestionId">
             <End Role="Question" EntitySet="Question" />
-            <End Role="AnswerMultipleChoice" EntitySet="AnswerMultipleChoice" />
-          </AssociationSet>
-          <AssociationSet Name="FK_AnswerOpen_QuestionId" Association="Self.FK_AnswerOpen_QuestionId">
-            <End Role="Question" EntitySet="Question" />
-            <End Role="AnswerOpen" EntitySet="AnswerOpen" />
+            <End Role="Answer" EntitySet="Answer" />
           </AssociationSet>
           <AssociationSet Name="FK_Exam_Subject" Association="Self.FK_Exam_Subject">
             <End Role="Subject" EntitySet="Subject" />
@@ -214,30 +188,10 @@
             <End Role="Topic" EntitySet="Topic" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="QuiztoolModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="AnswerMultipleChoice">
-          <Key>
-            <PropertyRef Name="QuestionId" />
-            <PropertyRef Name="AnswerId" />
-          </Key>
-          <Property Name="QuestionId" Type="Int32" Nullable="false" />
-          <Property Name="AnswerId" Type="Byte" Nullable="false" />
-          <Property Name="AnswerText" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="IsCorrect" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Question" Relationship="Self.FK_AnswerMultipleChoice_QuestionId" FromRole="AnswerMultipleChoice" ToRole="Question" />
-        </EntityType>
-        <EntityType Name="AnswerOpen">
-          <Key>
-            <PropertyRef Name="QuestionId" />
-          </Key>
-          <Property Name="QuestionId" Type="Int32" Nullable="false" />
-          <Property Name="AnswerText" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Question" Relationship="Self.FK_AnswerOpen_QuestionId" FromRole="AnswerOpen" ToRole="Question" />
-        </EntityType>
         <EntityType Name="Exam">
           <Key>
             <PropertyRef Name="Id" />
@@ -274,9 +228,8 @@
           <Property Name="Codeblock" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="QuestionType" Type="Byte" Nullable="false" />
           <Property Name="Weight" Type="Byte" Nullable="false" />
-          <NavigationProperty Name="AnswerMultipleChoices" Relationship="Self.FK_AnswerMultipleChoice_QuestionId" FromRole="Question" ToRole="AnswerMultipleChoice" />
-          <NavigationProperty Name="AnswerOpen" Relationship="Self.FK_AnswerOpen_QuestionId" FromRole="Question" ToRole="AnswerOpen" />
           <NavigationProperty Name="Topic" Relationship="Self.FK_Question_TopicId" FromRole="Question" ToRole="Topic" />
+          <NavigationProperty Name="Answers" Relationship="QuiztoolModel.FK_Answer_QuestionId" FromRole="Question" ToRole="Answer" />
         </EntityType>
         <EntityType Name="Subject">
           <Key>
@@ -307,34 +260,6 @@
           <NavigationProperty Name="Questions" Relationship="Self.FK_Question_TopicId" FromRole="Topic" ToRole="Question" />
           <NavigationProperty Name="Subject" Relationship="Self.FK_Topic_Subject" FromRole="Topic" ToRole="Subject" />
         </EntityType>
-        <Association Name="FK_AnswerMultipleChoice_QuestionId">
-          <End Role="Question" Type="Self.Question" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="AnswerMultipleChoice" Type="Self.AnswerMultipleChoice" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Question">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="AnswerMultipleChoice">
-              <PropertyRef Name="QuestionId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_AnswerOpen_QuestionId">
-          <End Role="Question" Type="Self.Question" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="AnswerOpen" Type="Self.AnswerOpen" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Question">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="AnswerOpen">
-              <PropertyRef Name="QuestionId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Exam_Subject">
           <End Role="Subject" Type="Self.Subject" Multiplicity="1" />
           <End Role="Exam" Type="Self.Exam" Multiplicity="*" />
@@ -378,22 +303,12 @@
           <End Role="Topic" Type="Self.Topic" Multiplicity="*" />
         </Association>
         <EntityContainer Name="QuiztoolEntities1" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="AnswerMultipleChoices" EntityType="Self.AnswerMultipleChoice" />
-          <EntitySet Name="AnswerOpens" EntityType="Self.AnswerOpen" />
           <EntitySet Name="Exams" EntityType="Self.Exam" />
           <EntitySet Name="ExamTopics" EntityType="Self.ExamTopic" />
           <EntitySet Name="Questions" EntityType="Self.Question" />
           <EntitySet Name="Subjects" EntityType="Self.Subject" />
           <EntitySet Name="Teachers" EntityType="Self.Teacher" />
           <EntitySet Name="Topics" EntityType="Self.Topic" />
-          <AssociationSet Name="FK_AnswerMultipleChoice_QuestionId" Association="Self.FK_AnswerMultipleChoice_QuestionId">
-            <End Role="Question" EntitySet="Questions" />
-            <End Role="AnswerMultipleChoice" EntitySet="AnswerMultipleChoices" />
-          </AssociationSet>
-          <AssociationSet Name="FK_AnswerOpen_QuestionId" Association="Self.FK_AnswerOpen_QuestionId">
-            <End Role="Question" EntitySet="Questions" />
-            <End Role="AnswerOpen" EntitySet="AnswerOpens" />
-          </AssociationSet>
           <AssociationSet Name="FK_Exam_Subject" Association="Self.FK_Exam_Subject">
             <End Role="Subject" EntitySet="Subjects" />
             <End Role="Exam" EntitySet="Exams" />
@@ -414,31 +329,43 @@
             <End Role="Subject" EntitySet="Subjects" />
             <End Role="Topic" EntitySet="Topics" />
           </AssociationSet>
+          <EntitySet Name="Answers" EntityType="QuiztoolModel.Answer" />
+          <AssociationSet Name="FK_Answer_QuestionId" Association="QuiztoolModel.FK_Answer_QuestionId">
+            <End Role="Question" EntitySet="Questions" />
+            <End Role="Answer" EntitySet="Answers" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Answer">
+          <Key>
+            <PropertyRef Name="QuestionId" />
+            <PropertyRef Name="AnswerId" />
+          </Key>
+          <Property Name="QuestionId" Type="Int32" Nullable="false" />
+          <Property Name="AnswerId" Type="Byte" Nullable="false" />
+          <Property Name="AnswerText" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="IsCorrect" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Question" Relationship="QuiztoolModel.FK_Answer_QuestionId" FromRole="Answer" ToRole="Question" />
+        </EntityType>
+        <Association Name="FK_Answer_QuestionId">
+          <End Type="QuiztoolModel.Question" Role="Question" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="QuiztoolModel.Answer" Role="Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Answer">
+              <PropertyRef Name="QuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="QuiztoolModelStoreContainer" CdmEntityContainer="QuiztoolEntities1">
-          <EntitySetMapping Name="AnswerMultipleChoices">
-            <EntityTypeMapping TypeName="QuiztoolModel.AnswerMultipleChoice">
-              <MappingFragment StoreEntitySet="AnswerMultipleChoice">
-                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
-                <ScalarProperty Name="AnswerId" ColumnName="AnswerId" />
-                <ScalarProperty Name="AnswerText" ColumnName="AnswerText" />
-                <ScalarProperty Name="IsCorrect" ColumnName="IsCorrect" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="AnswerOpens">
-            <EntityTypeMapping TypeName="QuiztoolModel.AnswerOpen">
-              <MappingFragment StoreEntitySet="AnswerOpen">
-                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
-                <ScalarProperty Name="AnswerText" ColumnName="AnswerText" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Exams">
             <EntityTypeMapping TypeName="QuiztoolModel.Exam">
               <MappingFragment StoreEntitySet="Exam">
@@ -525,6 +452,16 @@
               <ScalarProperty Name="Id" ColumnName="Id" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="Answers">
+            <EntityTypeMapping TypeName="QuiztoolModel.Answer">
+              <MappingFragment StoreEntitySet="Answer">
+                <ScalarProperty Name="IsCorrect" ColumnName="IsCorrect" />
+                <ScalarProperty Name="AnswerText" ColumnName="AnswerText" />
+                <ScalarProperty Name="AnswerId" ColumnName="AnswerId" />
+                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

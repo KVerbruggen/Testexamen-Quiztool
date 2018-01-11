@@ -5,21 +5,19 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="0213d5c806074f94963436ed70ba23fa" Name="Diagram1">
-        <EntityTypeShape EntityType="QuiztoolModel.AnswerMultipleChoice" Width="1.5" PointX="7.5" PointY="4.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuiztoolModel.AnswerOpen" Width="1.5" PointX="7.5" PointY="7.625" IsExpanded="true" />
         <EntityTypeShape EntityType="QuiztoolModel.Exam" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="QuiztoolModel.ExamTopic" Width="1.5" PointX="5.25" PointY="2.5" IsExpanded="true" />
         <EntityTypeShape EntityType="QuiztoolModel.Question" Width="1.5" PointX="5.25" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="QuiztoolModel.Subject" Width="1.5" PointX="0.75" PointY="4.375" IsExpanded="true" />
         <EntityTypeShape EntityType="QuiztoolModel.Teacher" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="QuiztoolModel.Topic" Width="1.5" PointX="3" PointY="6.125" IsExpanded="true" />
-        <AssociationConnector Association="QuiztoolModel.FK_AnswerMultipleChoice_QuestionId" ManuallyRouted="false" />
-        <AssociationConnector Association="QuiztoolModel.FK_AnswerOpen_QuestionId" ManuallyRouted="false" />
         <AssociationConnector Association="QuiztoolModel.FK_Exam_Subject" ManuallyRouted="false" />
         <AssociationConnector Association="QuiztoolModel.FK_ExamTopic_ExamId" ManuallyRouted="false" />
         <AssociationConnector Association="QuiztoolModel.FK_ExamTopic_TopicId" ManuallyRouted="false" />
         <AssociationConnector Association="QuiztoolModel.FK_Question_TopicId" ManuallyRouted="false" />
         <AssociationConnector Association="QuiztoolModel.FK_Topic_Subject" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="QuiztoolModel.Answer" Width="1.5" PointX="7.5" PointY="10.125" />
+        <AssociationConnector Association="QuiztoolModel.FK_Answer_QuestionId" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

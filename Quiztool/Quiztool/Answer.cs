@@ -12,7 +12,7 @@ namespace Quiztool
     using System;
     using System.Collections.Generic;
     
-    public partial class AnswerMultipleChoice
+    public partial class Answer
     {
         public int QuestionId { get; set; }
         public byte AnswerId { get; set; }

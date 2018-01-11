@@ -13,10 +13,10 @@ namespace Quiztool
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class QuiztoolEntities : DbContext
+    public partial class QuiztoolEntities1 : DbContext
     {
-        public QuiztoolEntities()
-            : base("name=QuiztoolEntities")
+        public QuiztoolEntities1()
+            : base("name=QuiztoolEntities1")
         {
         }
     
@@ -25,13 +25,12 @@ namespace Quiztool
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<AnswerMultipleChoice> AnswerMultipleChoices { get; set; }
-        public virtual DbSet<AnswerOpen> AnswerOpens { get; set; }
         public virtual DbSet<Exam> Exams { get; set; }
         public virtual DbSet<ExamTopic> ExamTopics { get; set; }
         public virtual DbSet<Question> Questions { get; set; }
         public virtual DbSet<Subject> Subjects { get; set; }
         public virtual DbSet<Teacher> Teachers { get; set; }
         public virtual DbSet<Topic> Topics { get; set; }
+        public virtual DbSet<Answer> Answers { get; set; }
     }
 }

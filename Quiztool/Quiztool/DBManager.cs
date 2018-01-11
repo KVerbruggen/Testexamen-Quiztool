@@ -13,18 +13,11 @@ namespace Quiztool
 {
     public class DBManager
     {
-        private QuiztoolEntities qte;
+        private QuiztoolEntities1 qte;
 
         public DBManager()
         {
-            try
-            {
-                qte = new QuiztoolEntities();
-            }
-            catch(Exception ex)
-            {
-
-            }
+            qte = new QuiztoolEntities1();
         }
 
         public bool Login(string username, string password)
