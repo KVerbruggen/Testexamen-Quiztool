@@ -3,8 +3,7 @@ USE quiztool;
 GO
 
 /* Reset database - drop existing tables */
-DROP TABLE IF EXISTS AnswerOpen;
-DROP TABLE IF EXISTS AnswerMultipleChoice;
+DROP TABLE IF EXISTS Answer;
 DROP TABLE IF EXISTS Question;
 DROP TABLE IF EXISTS ExamTopic;
 DROP TABLE IF EXISTS Exam;
@@ -76,27 +75,6 @@ CREATE TABLE Exam (
 		CHECK (MinimumScore IS NOT NULL OR MinimumTopicsPassed IS NOT NULL)
 );
 
-GO
-
-/*
-	TRIGGER Delete_Subject
-	The database schema has multiple cascade paths from Subject to ExamTopic (through Exam and through Topic).
-	MS SQL Server however doesn't allow multiple cascade paths.
-	Therefore a trigger is used to declare the deletion logic for the Subject table, instead of a cascade.
-*/
-CREATE TRIGGER Delete_Subject
-   ON Subject
-   INSTEAD OF DELETE
-AS
-BEGIN
- SET NOCOUNT ON;
- DELETE FROM Exam WHERE SubjectId IN (SELECT Id FROM DELETED)
- DELETE FROM Topic WHERE SubjectId IN (SELECT Id FROM DELETED)
- DELETE FROM Subject WHERE Id IN (SELECT Id FROM DELETED)
-END;
-
-GO
-
 /*
 	TABLE ExamTopic
 */
@@ -167,5 +145,56 @@ CREATE TABLE Answer (
 
 /*
 	Send statements to server for execution
+	Executed before creating triggers, because creating a trigger must be the first statement in a batch.
 */
+GO
+
+/*
+	TRIGGER Delete_Subject
+	The database schema has multiple cascade paths from Subject to ExamTopic (through Exam and through Topic).
+	MS SQL Server however doesn't allow multiple cascade paths.
+	Therefore a trigger is used to declare the deletion logic for the Subject table, instead of a cascade.
+*/
+CREATE TRIGGER Delete_Subject
+   ON Subject
+   INSTEAD OF DELETE
+AS
+BEGIN
+ SET NOCOUNT ON;
+ DELETE FROM Exam WHERE SubjectId IN (SELECT Id FROM DELETED)
+ DELETE FROM Topic WHERE SubjectId IN (SELECT Id FROM DELETED)
+ DELETE FROM Subject WHERE Id IN (SELECT Id FROM DELETED)
+END;
+
+GO
+
+/*
+	TRIGGER Delete_Topic
+	An exam needs at least 1 topic. If the last topic of an exam gets deleted, delete the exam.
+*/
+CREATE TRIGGER Delete_Topic
+   ON Topic
+   AFTER DELETE
+AS
+BEGIN
+ SET NOCOUNT ON;
+ DELETE FROM Subject WHERE Id IN (SELECT SubjectId FROM DELETED) AND Id NOT IN (SELECT SubjectId FROM Topic);
+END;
+
+GO
+
+/*
+	TRIGGER Delete_ExamTopic
+	An exam needs at least 1 topic. If the last topic of an exam gets deleted, delete the exam.
+*/
+CREATE TRIGGER Delete_ExamTopic
+   ON ExamTopic
+   AFTER DELETE
+AS
+BEGIN
+ SET NOCOUNT ON;
+ DELETE FROM ExamTopic WHERE ExamId IN (SELECT ExamId FROM DELETED) AND TopicId IN (SELECT TopicId FROM DELETED);
+ DELETE FROM Exam WHERE Id IN (SELECT ExamId FROM DELETED) AND Id NOT IN (SELECT ExamId FROM ExamTopic);
+END;
+
 GO
