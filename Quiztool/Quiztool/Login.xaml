@@ -6,8 +6,8 @@
       xmlns:local="clr-namespace:Quiztool"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
-      Title="Testexamen-Quiztool" Width="600" Height="505">
-    <Grid Width="600" Height="500">
+      Title="Testexamen-Quiztool" Width="800" Height="505">
+    <Grid Width="800" Height="500">
         <Grid.RowDefinitions>
             <RowDefinition MaxHeight="120"/>
             <RowDefinition/>

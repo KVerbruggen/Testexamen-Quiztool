@@ -153,10 +153,33 @@ namespace Quiztool
 
         private void btEditTopic_Click(object sender, RoutedEventArgs e)
         {
-            // TO-DO
+            if ((Topic)lbTopics.SelectedItem != null)
+            {
+                ((NavigationWindow)Application.Current.MainWindow).Navigate(new TeacherTopicInfo((Topic)lbTopics.SelectedItem));
+            }
         }
 
-        // TO-DO: Delete exams
-        // TO-DO: Edit exams
+        private void btNewTopic_Click(object sender, RoutedEventArgs e)
+        {
+            ((NavigationWindow)Application.Current.MainWindow).Navigate(new TeacherTopicInfo(subject));
+        }
+
+        private void btDeleteExam_Click(object sender, RoutedEventArgs e)
+        {
+            Main.db.DeleteExam((Exam)lbExams.SelectedItem);
+        }
+
+        private void btEditExam_Click(object sender, RoutedEventArgs e)
+        {
+            if ((Exam)lbExams.SelectedItem != null){
+                ((NavigationWindow)Application.Current.MainWindow).Navigate(new TeacherExamInfo((Exam)lbExams.SelectedItem));
+            }
+        }
+
+        private void btNewExam_Click(object sender, RoutedEventArgs e)
+        {
+            ((NavigationWindow)Application.Current.MainWindow).Navigate(new TeacherExamInfo(subject));
+        }
+
     }
 }

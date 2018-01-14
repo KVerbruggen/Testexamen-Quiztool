@@ -90,6 +90,12 @@
     <Compile Include="Exam.cs">
       <DependentUpon>EDMQuiztool.tt</DependentUpon>
     </Compile>
+    <Compile Include="TeacherExamInfo.xaml.cs">
+      <DependentUpon>TeacherExamInfo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TeacherTopicInfo.xaml.cs">
+      <DependentUpon>TeacherTopicInfo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TeacherSubjectInfo.xaml.cs">
       <DependentUpon>TeacherSubjectInfo.xaml</DependentUpon>
     </Compile>
@@ -118,6 +124,14 @@
     <Compile Include="Topic.cs">
       <DependentUpon>EDMQuiztool.tt</DependentUpon>
     </Compile>
+    <Page Include="TeacherExamInfo.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TeacherTopicInfo.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="TeacherSubjectInfo.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
