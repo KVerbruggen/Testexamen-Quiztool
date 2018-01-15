@@ -27,6 +27,7 @@ namespace Quiztool
             this.topic = topic;
             InitializeComponent();
             lblLoggedInAs.Content = "Ingelogd als: " + Main.User;
+            this.tbName.Text = topic.Name;
         }
 
         public TeacherTopicInfo(Subject subject)
@@ -44,8 +45,13 @@ namespace Quiztool
 
         private void btBack_Click(object sender, RoutedEventArgs e)
         {
-            ((NavigationWindow)Application.Current.MainWindow).Navigate(new TeacherSubjectList());
+            Main.db.RejectChanges(topic.GetType());
+            ((NavigationWindow)Application.Current.MainWindow).Navigate(new TeacherSubjectInfo(topic.Subject));
         }
 
+        private void btSave_Click(object sender, RoutedEventArgs e)
+        {
+            ((NavigationWindow)Application.Current.MainWindow).Navigate(new TeacherSubjectInfo(topic.Subject));
+        }
     }
 }

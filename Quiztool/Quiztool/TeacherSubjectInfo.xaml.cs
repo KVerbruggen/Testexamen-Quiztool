@@ -36,6 +36,7 @@ namespace Quiztool
                 subject = new Subject();
             }
             InitializeComponent();
+            this.tbName.Text = subject.Name;
             lblLoggedInAs.Content = "Ingelogd als: " + Main.User;
             popupAction = GoBack;
         }

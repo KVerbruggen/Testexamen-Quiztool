@@ -105,5 +105,26 @@ namespace Quiztool
             db.SaveChanges();
         }
 
+        public void RejectChanges(Type dbType)
+        {
+            foreach (DbEntityEntry entry in db.ChangeTracker.Entries())
+            {
+                if (entry.Entity.GetType() == dbType)
+                {
+                    switch (entry.State)
+                    {
+                        case EntityState.Modified:
+                        case EntityState.Deleted:
+                            entry.State = EntityState.Modified; //Revert changes made to deleted entity.
+                            entry.State = EntityState.Unchanged;
+                            break;
+                        case EntityState.Added:
+                            entry.State = EntityState.Detached;
+                            break;
+                    }
+                }
+            }
+        }
+
     }
 }
