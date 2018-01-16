@@ -45,7 +45,7 @@ namespace Quiztool
 
         private void btBack_Click(object sender, RoutedEventArgs e)
         {
-            Main.db.RejectChanges(topic.GetType());
+            Main.db.RejectChanges(topic);
             ((NavigationWindow)Application.Current.MainWindow).Navigate(new TeacherSubjectInfo(topic.Subject));
         }
 

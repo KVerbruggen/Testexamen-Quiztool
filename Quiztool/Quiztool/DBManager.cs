@@ -105,26 +105,60 @@ namespace Quiztool
             db.SaveChanges();
         }
 
-        public void RejectChanges(Type dbType)
+        public void RejectChanges(DbEntityEntry entry)
+        {
+            switch (entry.State)
+            {
+                case EntityState.Modified:
+                case EntityState.Deleted:
+                    entry.State = EntityState.Modified; //Revert changes made to deleted entity.
+                    entry.State = EntityState.Unchanged;
+                    break;
+                case EntityState.Added:
+                    entry.State = EntityState.Detached;
+                    break;
+            }
+        }
+
+        public void RejectChanges(Topic topic)
         {
             foreach (DbEntityEntry entry in db.ChangeTracker.Entries())
             {
-                if (entry.Entity.GetType() == dbType)
+                if (entry.Entity.Equals(topic) || topic.Questions.Contains(entry.Entity))
                 {
-                    switch (entry.State)
-                    {
-                        case EntityState.Modified:
-                        case EntityState.Deleted:
-                            entry.State = EntityState.Modified; //Revert changes made to deleted entity.
-                            entry.State = EntityState.Unchanged;
-                            break;
-                        case EntityState.Added:
-                            entry.State = EntityState.Detached;
-                            break;
-                    }
+                    RejectChanges(entry);
                 }
             }
         }
 
+        public void RejectChanges(Exam exam)
+        {
+            foreach (DbEntityEntry entry in db.ChangeTracker.Entries())
+            {
+                if (entry.Entity.Equals(exam))
+                {
+                    RejectChanges(entry);
+                }
+            }
+        }
+
+        public void RejectChanges(Subject subject)
+        {
+            foreach (DbEntityEntry entry in db.ChangeTracker.Entries())
+            {
+                RejectChanges(entry);
+            }
+        }
+
+        public void RejectChanges(Question question)
+        {
+            foreach (DbEntityEntry entry in db.ChangeTracker.Entries())
+            {
+                if (entry.Entity.Equals(question))
+                {
+                    RejectChanges(entry);
+                }
+            }
+        }
     }
 }
