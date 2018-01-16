@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Text.RegularExpressions;
 
 namespace Quiztool
 {
@@ -29,23 +30,29 @@ namespace Quiztool
             lblLoggedInAs.Content = "Ingelogd als: " + Main.User;
         }
 
-        public TeacherExamInfo(Subject subject)
+        private void ForceNumberInput(object sender, TextCompositionEventArgs e)
         {
-            exam = new Exam() { Subject = subject };
-            InitializeComponent();
-            lblLoggedInAs.Content = "Ingelogd als: " + Main.User;
+            // Source: https://stackoverflow.com/questions/42480514/c-sharp-wpf-how-to-use-only-numeric-value-in-a-textbox
+            var textBox = sender as TextBox;
+            e.Handled = Regex.IsMatch(e.Text, "[^0-9]+");
         }
 
         private void btLogout_Click(object sender, RoutedEventArgs e)
         {
+            Main.db.RejectChanges();
             Main.Logout();
             ((NavigationWindow)Application.Current.MainWindow).Navigate(new Login());
         }
 
         private void btBack_Click(object sender, RoutedEventArgs e)
         {
-            ((NavigationWindow)Application.Current.MainWindow).Navigate(new TeacherSubjectList());
+            Main.db.RejectChanges(exam);
+            ((NavigationWindow)Application.Current.MainWindow).Navigate(new TeacherSubjectInfo(exam.Subject));
         }
 
+        private void btDone_Click(object sender, RoutedEventArgs e)
+        {
+            ((NavigationWindow)Application.Current.MainWindow).Navigate(new TeacherSubjectInfo(exam.Subject));
+        }
     }
 }

@@ -173,7 +173,7 @@ namespace Quiztool
 
         private void btNewExam_Click(object sender, RoutedEventArgs e)
         {
-            ((NavigationWindow)Application.Current.MainWindow).Navigate(new TeacherExamInfo(subject));
+            ((NavigationWindow)Application.Current.MainWindow).Navigate(new TeacherExamInfo(new Exam() { Subject = subject }));
         }
 
     }
