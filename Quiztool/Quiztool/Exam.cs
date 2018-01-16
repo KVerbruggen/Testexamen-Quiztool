@@ -37,5 +37,15 @@ namespace Quiztool
         {
             return this.Name;
         }
+
+        public int GetTotalQuestions()
+        {
+            int questions = 0;
+            foreach (ExamTopic examTopic in ExamTopics)
+            {
+                questions += examTopic.Topic.Questions.Count;
+            }
+            return questions;
+        }
     }
 }

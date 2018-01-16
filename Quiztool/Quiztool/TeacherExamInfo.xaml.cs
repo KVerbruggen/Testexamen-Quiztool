@@ -28,6 +28,7 @@ namespace Quiztool
             this.exam = exam;
             InitializeComponent();
             lblLoggedInAs.Content = "Ingelogd als: " + Main.User;
+            lblQuestionsInTopics.Content = "Totaal aantal vragen in onderwerpen: " + exam.GetTotalQuestions();
         }
 
         private void ForceNumberInput(object sender, TextCompositionEventArgs e)
