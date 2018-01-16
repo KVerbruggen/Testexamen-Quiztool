@@ -27,7 +27,7 @@
         <Button x:Name="btLogout" Content="Log uit" Grid.Column="2" HorizontalAlignment="Right" Margin="0,10,40,0" VerticalAlignment="Top" Width="50" Background="White" Height="23" Click="btLogout_Click"/>
         <Button x:Name="btBack" Content="Terug" Grid.Column="2" HorizontalAlignment="Right" Margin="0,40,40,0" VerticalAlignment="Top" Width="50" Background="White" Height="23" Click="btBack_Click"/>
         <Label x:Name="lblLoggedInAs" Content="Ingelogd als: " Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="10,10,50,0" VerticalAlignment="Top" Width="165" HorizontalContentAlignment="Right" Height="26"/>
-        <Label Grid.Row="1" Grid.ColumnSpan="4" Content="Beheer onderwerp" Height="30" VerticalAlignment="Top" FontWeight="Bold" FontSize="16"/>
+        <Label Grid.Row="1" Grid.ColumnSpan="2" Content="Beheer onderwerp" Height="30" VerticalAlignment="Top" FontWeight="Bold" FontSize="16"/>
         <Label Grid.Row="2" Content="Naam: " Height="30" VerticalAlignment="Top" FontSize="12"/>
         <TextBox x:Name="tbName" Grid.Row="2" Grid.Column="1" Height="23" VerticalAlignment="Top" TextWrapping="NoWrap" Margin="0,0,10,0" Text="Onderwerp"/>
         <Label Grid.Row="3" Grid.ColumnSpan="2" Content="Vragen" Height="30" VerticalAlignment="Top" FontWeight="Bold" FontSize="12" Margin="0,0,0,0"/>

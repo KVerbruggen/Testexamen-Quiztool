@@ -100,6 +100,11 @@ namespace Quiztool
             db.Exams.Remove(exam);
         }
 
+        public void DeleteAnswer(Answer answer)
+        {
+            db.Answers.Remove(answer);
+        }
+
         public void Save()
         {
             db.SaveChanges();
@@ -146,7 +151,14 @@ namespace Quiztool
         {
             foreach (DbEntityEntry entry in db.ChangeTracker.Entries())
             {
-                if (entry.Entity.Equals(question))
+                if (entry.Entity.GetType() == typeof(Answer))
+                {
+                    if (((Answer)(entry.Entity)).Question.Equals(question))
+                    {
+                        RejectChanges(entry);
+                    }
+                }
+                else if (entry.Entity.Equals(question))
                 {
                     RejectChanges(entry);
                 }
