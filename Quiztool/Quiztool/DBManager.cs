@@ -142,14 +142,6 @@ namespace Quiztool
             }
         }
 
-        public void RejectChanges(Subject subject)
-        {
-            foreach (DbEntityEntry entry in db.ChangeTracker.Entries())
-            {
-                RejectChanges(entry);
-            }
-        }
-
         public void RejectChanges(Question question)
         {
             foreach (DbEntityEntry entry in db.ChangeTracker.Entries())
@@ -158,6 +150,14 @@ namespace Quiztool
                 {
                     RejectChanges(entry);
                 }
+            }
+        }
+
+        public void RejectChanges()
+        {
+            foreach (DbEntityEntry entry in db.ChangeTracker.Entries())
+            {
+                RejectChanges(entry);
             }
         }
     }

@@ -12,6 +12,8 @@ namespace Quiztool
     using System;
     using System.Collections.Generic;
     
+    public enum QuestionType { Closed, Open };
+
     public partial class Question
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -24,10 +26,53 @@ namespace Quiztool
         public string QuestionText { get; set; }
         public string Codeblock { get; set; }
         public byte QuestionType { get; set; }
+        public QuestionType QuestionTypeEnum
+        {
+            get
+            {
+                return ((QuestionType)QuestionType);
+            }
+            set
+            {
+                QuestionType = (byte)value;
+            }
+        }
+        public string Answer
+        {
+            get
+            {
+                string answerText = String.Empty;
+                switch (QuestionType)
+                {
+                    case 0:
+                        foreach (Answer answer in Answers)
+                        {
+                            if (answerText != String.Empty)
+                            {
+                                answerText += ", ";
+                            }
+                            answerText += answer.AnswerText;
+                        }
+                        break;
+                    case 1:
+                    default:
+                        foreach (Answer answer in Answers)
+                        {
+                            if (answer.IsCorrect)
+                            {
+                                answerText = answer.AnswerText;
+                            }
+                        }
+                        break;
+                }
+                return answerText;
+            }
+        }
         public byte Weight { get; set; }
     
         public virtual Topic Topic { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Answer> Answers { get; set; }
+
     }
 }

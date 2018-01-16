@@ -23,14 +23,16 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Image x:Name="Logo" HorizontalAlignment="Right" Height="100" VerticalAlignment="Bottom" Width="100" Source="resources/logo.png" Grid.Column="1"/>
-        <Label x:Name="Apptitle" Grid.Column="2" Content="Testexamen&#10;Quiztool" HorizontalAlignment="Left" Margin="5,36,0,0" VerticalAlignment="Top" FontSize="24" FontWeight="Bold" Height="74" Width="143"/>
+        <WrapPanel Grid.Column="0" Grid.ColumnSpan="4" HorizontalAlignment="Center" Height="100" Margin="0,0,0,0" VerticalAlignment="Top" Width="Auto">
+            <Image x:Name="Logo" HorizontalAlignment="Right" Height="100" VerticalAlignment="Bottom" Width="100" Source="resources/logo.png" />
+            <Label x:Name="Apptitle" Content="Testexamen&#10;Quiztool" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" FontSize="24" FontWeight="Bold" Height="74" Width="143"/>
+        </WrapPanel>
         <Button x:Name="btLogout" Content="Log uit" Grid.Column="3" HorizontalAlignment="Left" Margin="40,10,0,0" VerticalAlignment="Top" Width="50" Background="White" Height="23" Click="btLogout_Click"/>
         <Button x:Name="btBack" Content="Terug" Grid.Column="3" HorizontalAlignment="Left" Margin="40,40,0,0" VerticalAlignment="Top" Width="50" Background="White" Height="23" Click="btBack_Click"/>
         <Label x:Name="lblLoggedInAs" Content="Ingelogd als: " Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="175" HorizontalContentAlignment="Right" Height="26"/>
         <Label Grid.Row="1" Grid.ColumnSpan="4" Content="Beheer vak" Height="30" VerticalAlignment="Top" FontWeight="Bold" FontSize="16"/>
         <Label Grid.Row="2" Content="Naam: " Height="30" VerticalAlignment="Top" FontSize="12"/>
-        <TextBox x:Name="tbName" Grid.Row="2" Grid.Column="1" Height="23" VerticalAlignment="Top" TextWrapping="NoWrap" Text="TextBox" Margin="0,0,10,0"/>
+        <TextBox x:Name="tbName" Grid.Row="2" Grid.Column="1" Height="23" VerticalAlignment="Top" TextWrapping="NoWrap" Margin="0,0,10,0" Text="Vak"/>
         <Label Grid.Row="3" Grid.ColumnSpan="2" Content="Onderwerpen" Height="30" VerticalAlignment="Top" FontWeight="Bold" FontSize="12" Margin="0,0,0,0"/>
         <ListBox x:Name="lbTopics" Grid.Row="4" Grid.ColumnSpan="2" Margin="0,0,10,0" SelectionChanged="lbTopics_SelectionChanged">
         </ListBox>

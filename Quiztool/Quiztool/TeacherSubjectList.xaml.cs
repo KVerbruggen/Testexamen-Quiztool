@@ -53,7 +53,7 @@ namespace Quiztool
 
         private void btAddSubject_Click(object sender, RoutedEventArgs e)
         {
-            ((NavigationWindow)Application.Current.MainWindow).Navigate(new TeacherSubjectInfo());
+            ((NavigationWindow)Application.Current.MainWindow).Navigate(new TeacherSubjectInfo(new Subject()));
         }
     }
 }

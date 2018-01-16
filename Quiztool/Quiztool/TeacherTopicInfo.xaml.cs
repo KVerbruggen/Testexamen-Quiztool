@@ -28,17 +28,12 @@ namespace Quiztool
             InitializeComponent();
             lblLoggedInAs.Content = "Ingelogd als: " + Main.User;
             this.tbName.Text = topic.Name;
-        }
-
-        public TeacherTopicInfo(Subject subject)
-        {
-            topic = new Topic() { Subject = subject };
-            InitializeComponent();
-            lblLoggedInAs.Content = "Ingelogd als: " + Main.User;
+            dgQuestions.ItemsSource = topic.Questions;
         }
 
         private void btLogout_Click(object sender, RoutedEventArgs e)
         {
+            Main.db.RejectChanges();
             Main.Logout();
             ((NavigationWindow)Application.Current.MainWindow).Navigate(new Login());
         }
@@ -49,9 +44,24 @@ namespace Quiztool
             ((NavigationWindow)Application.Current.MainWindow).Navigate(new TeacherSubjectInfo(topic.Subject));
         }
 
-        private void btSave_Click(object sender, RoutedEventArgs e)
+        private void btDone_Click(object sender, RoutedEventArgs e)
         {
             ((NavigationWindow)Application.Current.MainWindow).Navigate(new TeacherSubjectInfo(topic.Subject));
+        }
+
+        private void btNewQuestion_Click(object sender, RoutedEventArgs e)
+        {
+            ((NavigationWindow)Application.Current.MainWindow).Navigate(new TeacherQuestionInfo(new Question { Topic = topic }));
+        }
+
+        private void btEditQuestion_Click(object sender, RoutedEventArgs e)
+        {
+            ((NavigationWindow)Application.Current.MainWindow).Navigate(new TeacherQuestionInfo(dgQuestions.SelectedItem as Question));
+        }
+
+        private void btDeleteQuestion_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

@@ -16,8 +16,10 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Image x:Name="Logo" HorizontalAlignment="Right" Height="100" VerticalAlignment="Bottom" Width="100" Source="resources/logo.png"/>
-        <Label x:Name="Apptitle" Content="Testexamen&#10;Quiztool" HorizontalAlignment="Left" Margin="5,36,0,0" VerticalAlignment="Top" Grid.Column="1" FontSize="24" FontWeight="Bold"/>
+        <WrapPanel Grid.ColumnSpan="2" HorizontalAlignment="Center" Height="100" Margin="0,0,0,0" VerticalAlignment="Top" Width="Auto">
+            <Image x:Name="Logo" HorizontalAlignment="Right" Height="100" VerticalAlignment="Bottom" Width="100" Source="resources/logo.png" />
+            <Label x:Name="Apptitle" Content="Testexamen&#10;Quiztool" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" FontSize="24" FontWeight="Bold" Height="74" Width="143"/>
+        </WrapPanel>
         <Button x:Name="btLogout" Content="Log uit" Grid.Column="1" HorizontalAlignment="Left" Margin="190,10,0,0" VerticalAlignment="Top" Width="50" Background="White" Height="23" Click="btLogout_Click"/>
         <Label x:Name="lblLoggedInAs" Content="Ingelogd als: " Grid.Column="1" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="175" HorizontalContentAlignment="Right"/>
         <DockPanel Grid.ColumnSpan="2" Height="Auto" LastChildFill="False" Grid.Row="1" VerticalAlignment="Top" Width="400" HorizontalAlignment="Center">

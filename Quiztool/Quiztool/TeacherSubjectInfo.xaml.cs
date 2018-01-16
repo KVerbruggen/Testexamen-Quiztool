@@ -25,16 +25,9 @@ namespace Quiztool
 
         public TeacherSubjectInfo(Subject subject = null)
         {
-            if (subject != null)
-            {
-                this.subject = subject;
-                GetExams();
-                GetTopics();
-            }
-            else
-            {
-                subject = new Subject();
-            }
+            this.subject = subject;
+            GetExams();
+            GetTopics();
             InitializeComponent();
             this.tbName.Text = subject.Name;
             lblLoggedInAs.Content = "Ingelogd als: " + Main.User;
@@ -117,6 +110,7 @@ namespace Quiztool
 
         private void btPopupNotSavedNo_Click(object sender, RoutedEventArgs e)
         {
+            Main.db.RejectChanges();
             popupAction();
         }
 
@@ -162,7 +156,7 @@ namespace Quiztool
 
         private void btNewTopic_Click(object sender, RoutedEventArgs e)
         {
-            ((NavigationWindow)Application.Current.MainWindow).Navigate(new TeacherTopicInfo(subject));
+            ((NavigationWindow)Application.Current.MainWindow).Navigate(new TeacherTopicInfo(new Topic() { Subject = subject }));
         }
 
         private void btDeleteExam_Click(object sender, RoutedEventArgs e)

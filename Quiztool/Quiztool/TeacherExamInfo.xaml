@@ -23,8 +23,10 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Image x:Name="Logo" HorizontalAlignment="Right" Height="100" VerticalAlignment="Bottom" Width="100" Source="resources/logo.png" Grid.Column="1"/>
-        <Label x:Name="Apptitle" Grid.Column="2" Content="Testexamen&#10;Quiztool" HorizontalAlignment="Left" Margin="5,36,0,0" VerticalAlignment="Top" FontSize="24" FontWeight="Bold" Height="74" Width="143"/>
+        <WrapPanel Grid.Column="0" Grid.ColumnSpan="4" HorizontalAlignment="Center" Height="100" Margin="0,0,0,0" VerticalAlignment="Top" Width="Auto">
+            <Image x:Name="Logo" HorizontalAlignment="Right" Height="100" VerticalAlignment="Bottom" Width="100" Source="resources/logo.png" />
+            <Label x:Name="Apptitle" Content="Testexamen&#10;Quiztool" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" FontSize="24" FontWeight="Bold" Height="74" Width="143"/>
+        </WrapPanel>
         <Button x:Name="btLogout" Content="Log uit" Grid.Column="3" HorizontalAlignment="Left" Margin="40,10,0,0" VerticalAlignment="Top" Width="50" Background="White" Height="23" Click="btLogout_Click"/>
         <Button x:Name="btBack" Content="Terug" Grid.Column="3" HorizontalAlignment="Left" Margin="40,40,0,0" VerticalAlignment="Top" Width="50" Background="White" Height="23" Click="btBack_Click"/>
         <Label x:Name="lblLoggedInAs" Content="Ingelogd als: " Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="175" HorizontalContentAlignment="Right" Height="26"/>
