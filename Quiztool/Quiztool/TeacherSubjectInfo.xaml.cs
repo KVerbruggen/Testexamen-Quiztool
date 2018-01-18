@@ -49,8 +49,6 @@ namespace Quiztool
          * Deze functies zijn overbodig.
         private void GetTopics()
         {
-            // TO-DO: Find out if this is valid, or if a separate query is necessary (function for this already created in DBManager as GetTopics(Subject subject)
-            // TO-DO: Same for GetExams(), lbTopics_SelectionChanged() and lbExams_SelectionChanged
             if (subject != null)
             {
                 foreach (Topic topic in subject.Topics)
@@ -137,7 +135,7 @@ namespace Quiztool
         private void lbTopics_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             lblTopicName.Content = ((Topic)lbTopics.SelectedItem).Name;
-            lblTopicNQuestions.Content = ((Topic)lbTopics.SelectedItem).Questions.Count;
+            lblTopicNQuestions.Content = "Aantal vragen: " + ((Topic)lbTopics.SelectedItem).Questions.Count;
             spTopic.Children.Clear();
             foreach (Question question in ((Topic)lbTopics.SelectedItem).Questions)
             {
@@ -151,8 +149,22 @@ namespace Quiztool
 
         private void lbExams_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            lblExamName.Content = ((Exam)lbExams.SelectedItem).Name;
-            // TO-DO: Vul overige info in.
+            if ((Exam)lbExams.SelectedItem != null) {
+                Exam exam = ((Exam)lbExams.SelectedItem);
+                lblExamName.Content = exam.Name;
+                lblExamTopics.Content = "Onderwerpen: " + exam.GetTopicsAsString();
+                lblExamNQuestions.Content = "Aantal vragen: " + exam.NQuestions;
+
+                string maxScore = (exam.GetMaxScore() == 0) ? "-" : exam.GetMaxScore().ToString();
+                lblExamMaxScore.Content = "Totale score: " + maxScore;
+                lblExamMinScore.Content = "Minimumscore: " + exam.Minimumscore;
+
+                string minimumTopicsPassed = ((int)exam.MinimumTopicsPassed == 0) ? "-" : ((int)exam.MinimumTopicsPassed).ToString();
+                lblMinTopics.Content = "Minimum aantal onderwerpen: " + minimumTopicsPassed;
+
+                string timelimit = (exam.Timelimit == 0) ? "-" : exam.Timelimit.ToString();
+                lblTimeLimit.Content = "Tijdslimiet: " + timelimit;
+            }
         }
 
         private void btDeleteTopic_Click(object sender, RoutedEventArgs e)

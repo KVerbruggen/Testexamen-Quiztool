@@ -28,6 +28,7 @@ namespace Quiztool
         public short GenerateInput { get; set; }
         public Nullable<byte> MinimumTopicsPassed { get; set; }
         public bool IsHidden { get; set; }
+        public int NQuestions { get; set; }
     
         public virtual Subject Subject { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -46,6 +47,37 @@ namespace Quiztool
                 questions += examTopic.Topic.Questions.Count;
             }
             return questions;
+        }
+
+        public string GetTopicsAsString()
+        {
+            string topics = String.Empty;
+            bool first = true;
+            foreach (ExamTopic examTopic in ExamTopics)
+            {
+                if (first)
+                {
+                    first = false;
+                }
+                else
+                {
+                    topics += ", ";
+                }
+                topics += examTopic.Topic.Name;
+            }
+            return topics;
+        }
+
+        public int GetMaxScore()
+        {
+            if (GenerateMethod == 1)
+            {
+                return GenerateInput;
+            }
+            else
+            {
+                return 0;
+            }
         }
     }
 }

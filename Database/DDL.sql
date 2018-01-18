@@ -52,6 +52,7 @@ CREATE TABLE Exam (
 	Id					INT IDENTITY PRIMARY KEY,
 	Name				VARCHAR(256) NOT NULL,
 	Timelimit			SMALLINT,
+	NQuestions			INT NOT NULL,
 	Minimumscore		SMALLINT,
 	GenerateMethod		TINYINT NOT NULL,
 	GenerateInput		SMALLINT NOT NULL,

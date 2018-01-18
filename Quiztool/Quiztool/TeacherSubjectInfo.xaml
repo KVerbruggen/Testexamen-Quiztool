@@ -41,28 +41,28 @@
         <Button x:Name="btSave" Content="Opslaan" Height="30" VerticalAlignment="Top" Margin="25,5,25,0" Background="#FF51A8FF" BorderBrush="#FF3C7EC0" BorderThickness="1" Foreground="#FFFFFF" FontWeight="Bold" Click="btSave_Click" Grid.Column="2" Grid.Row="1"/>
         <Border HorizontalAlignment="Stretch" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="3" Grid.RowSpan="2" VerticalAlignment="Top" Margin="10,0,0,0" BorderBrush="#FF3C7EC0" BorderThickness="1" Height="154">
             <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" LastChildFill="True" >
-                <Label x:Name="lblTopicName" DockPanel.Dock="Top" Content="Onderwerp" Height="30" Width="Auto" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontWeight="Bold" FontSize="12" Margin="0,-15,0,-5" Background="#FF51A8FF" Foreground="#FFFFFF"/>
+                <Label x:Name="lblTopicName" DockPanel.Dock="Top" Content="Onderwerp" Height="30" Width="Auto" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" FontSize="12" Margin="-1,-15,0,-5" Background="#FF51A8FF" Foreground="#FFFFFF"/>
                 <WrapPanel DockPanel.Dock="Top">
                     <Label x:Name="lblTopicNQuestions" VerticalAlignment="Center" Content="Aantal vragen: 123"/>
                     <Button x:Name="btNewTopic" VerticalAlignment="Center" Content="Nieuw" Width="Auto" Padding="5,0" Height="30" Margin="10,5,5,5" Background="#FF51A8FF" BorderBrush="#FF3C7EC0" BorderThickness="1" Foreground="#FFFFFF" FontWeight="Bold" Click="btNewTopic_Click"/>
                     <Button x:Name="btEditTopic" VerticalAlignment="Center" Content="Bewerk" Width="Auto" Padding="5,0" Height="30" Margin="5,5,5,5" Background="#FF51A8FF" BorderBrush="#FF3C7EC0" BorderThickness="1" Foreground="#FFFFFF" FontWeight="Bold" Click="btEditTopic_Click"/>
                     <Button x:Name="btDeleteTopic" VerticalAlignment="Center" Content="Verwijder" Width="Auto" Padding="5,0" Height="30" Margin="5,5,5,5" Background="#FF51A8FF" BorderBrush="#FF3C7EC0" BorderThickness="1" Foreground="#FFFFFF" FontWeight="Bold" Click="btDeleteTopic_Click"/>
                 </WrapPanel>
-                <Border BorderThickness="1" BorderBrush="#000000">
+                <Border BorderThickness="0 1 0 0" BorderBrush="#000000">
                     <StackPanel x:Name="spTopic" HorizontalAlignment="Stretch" MinHeight="100" />
                 </Border>
             </DockPanel>
         </Border>
         <Border HorizontalAlignment="Stretch" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="5" Grid.RowSpan="2" VerticalAlignment="Top" Margin="10,0,0,0" BorderBrush="#FF3C7EC0" BorderThickness="1" Height="154">
             <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" LastChildFill="True" >
-                <Label x:Name="lblExamName" DockPanel.Dock="Top" Content="Examen" Height="30" Width="Auto" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontWeight="Bold" FontSize="12" Margin="0,-15,0,-5" Background="#FF51A8FF" Foreground="#FFFFFF"/>
+                <Label x:Name="lblExamName" DockPanel.Dock="Top" Content="Examen" Height="30" Width="Auto" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" FontSize="12" Margin="-1,-15,0,-5" Background="#FF51A8FF" Foreground="#FFFFFF"/>
                 <WrapPanel DockPanel.Dock="Top">
                     <Label VerticalAlignment="Center" Content="Aantal vragen: 123"/>
                     <Button x:Name="btNewExam" VerticalAlignment="Center" Content="Nieuw" Width="Auto" Padding="5,0" Height="30" Margin="10,5,5,5" Background="#FF51A8FF" BorderBrush="#FF3C7EC0" BorderThickness="1" Foreground="#FFFFFF" FontWeight="Bold" Click="btNewExam_Click"/>
                     <Button x:Name="btEditExam" VerticalAlignment="Center" Content="Bewerk" Width="Auto" Padding="5,0" Height="30" Margin="5,5,5,5" Background="#FF51A8FF" BorderBrush="#FF3C7EC0" BorderThickness="1" Foreground="#FFFFFF" FontWeight="Bold" Click="btEditExam_Click"/>
                     <Button x:Name="btDeleteExam" VerticalAlignment="Center" Content="Verwijder" Width="Auto" Padding="5,0" Height="30" Margin="5,5,5,5" Background="#FF51A8FF" BorderBrush="#FF3C7EC0" BorderThickness="1" Foreground="#FFFFFF" FontWeight="Bold" Click="btDeleteExam_Click"/>
                 </WrapPanel>
-                <Border BorderThickness="1" BorderBrush="#000000">
+                <Border BorderThickness="0 1 0 0" BorderBrush="#000000">
                     <StackPanel x:Name="spExam" HorizontalAlignment="Stretch" MinHeight="100">
                         <Label x:Name="lblExamTopics" Content="Onderwerpen: " HorizontalAlignment="Stretch" Margin="0,0,0,-10"/>
                         <Label x:Name="lblExamNQuestions" Content="Aantal vragen: " HorizontalAlignment="Stretch" Margin="0,0,0,-10"/>
