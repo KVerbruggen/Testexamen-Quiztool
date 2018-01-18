@@ -23,9 +23,16 @@ namespace Quiztool
         private Subject subject;
         private Action popupAction;
 
-        public TeacherSubjectInfo(Subject subject = null)
+        public TeacherSubjectInfo(Subject subject)
         {
-            this.subject = subject;
+            if (subject == null)
+            {
+                this.subject = subject;
+            }
+            else
+            {
+                this.subject = new Subject();
+            }
             // GetExams();
             // GetTopics();
             InitializeComponent();

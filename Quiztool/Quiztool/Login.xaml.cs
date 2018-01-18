@@ -38,6 +38,7 @@ namespace Quiztool
             }
             else
             {
+                lblBadLogin.Visibility = Visibility.Visible;
                 tbPassword.Clear();
             }
         }

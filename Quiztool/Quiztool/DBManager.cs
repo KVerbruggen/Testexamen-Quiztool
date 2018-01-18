@@ -25,6 +25,19 @@ namespace Quiztool
 
         public bool Login(string username, string hashedPassword)
         {
+            return db.Teachers.Where(t => t.Name.Equals(username) && t.Password.Equals(hashedPassword)).Any();
+        }
+
+        public List<Subject> GetSubjects()
+        {
+            return db.Subjects.ToList();
+        }
+
+        /*
+         * These functions are unnecessary or invalid in a code-first implementation.
+        public bool Login(string username, string hashedPassword)
+        {
+            
             return (
                 from Teacher in db.Teachers
                 where Teacher.Name.Equals(username) && Teacher.Password.Equals(hashedPassword)
@@ -84,6 +97,7 @@ namespace Quiztool
                 select Exam
                 ).ToList();
         }
+        */
 
         public void DeleteSubject(Subject subject)
         {

@@ -20,8 +20,8 @@
             <Image x:Name="Logo" HorizontalAlignment="Right" Height="100" VerticalAlignment="Bottom" Width="100" Source="resources/logo.png" />
             <Label x:Name="Apptitle" Content="Testexamen&#10;Quiztool" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" FontSize="24" FontWeight="Bold" Height="74" Width="143"/>
         </WrapPanel>
-        <Button x:Name="btLogout" Content="Log uit" Grid.Column="1" HorizontalAlignment="Left" Margin="190,10,0,0" VerticalAlignment="Top" Width="50" Background="White" Height="23" Click="btLogout_Click"/>
-        <Label x:Name="lblLoggedInAs" Content="Ingelogd als: " Grid.Column="1" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="175" HorizontalContentAlignment="Right"/>
+        <Button x:Name="btLogout" Content="Log uit" Grid.Column="1" HorizontalAlignment="Right" Margin="0,10,10,0" VerticalAlignment="Top" Width="50" Background="White" Height="23" Click="btLogout_Click"/>
+        <Label x:Name="lblLoggedInAs" Content="Ingelogd als: " Grid.Column="1" HorizontalAlignment="Right" Margin="10,10,70,0" VerticalAlignment="Top" Width="Auto" HorizontalContentAlignment="Right"/>
         <DockPanel Grid.ColumnSpan="2" Height="Auto" LastChildFill="False" Grid.Row="1" VerticalAlignment="Top" Width="400" HorizontalAlignment="Center">
             <Label DockPanel.Dock="Top" Content="Vakken" Height="30" VerticalAlignment="Top" FontWeight="Bold" FontSize="16"/>
             <Border DockPanel.Dock="Left" VerticalAlignment="Top" Width="290" BorderBrush="#FF212121" BorderThickness="1" HorizontalAlignment="Left" Height="300" Margin="0,0,0,0">

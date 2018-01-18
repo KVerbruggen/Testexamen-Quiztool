@@ -33,6 +33,10 @@ namespace Quiztool
             {
                 lbSubjects.Items.Add(subject);
             }
+            if (lbSubjects.Items.Count != 0)
+            {
+                lbSubjects.SelectedIndex = 0;
+            }
         }
 
         private void btLogout_Click(object sender, RoutedEventArgs e)
@@ -49,7 +53,10 @@ namespace Quiztool
 
         private void btManageSubject_Click(object sender, RoutedEventArgs e)
         {
-            ((NavigationWindow)Application.Current.MainWindow).Navigate(new TeacherSubjectInfo((Subject)lbSubjects.SelectedItem));
+            if ((Subject)lbSubjects.SelectedItem != null)
+            {
+                ((NavigationWindow)Application.Current.MainWindow).Navigate(new TeacherSubjectInfo((Subject)lbSubjects.SelectedItem));
+            }
         }
 
         private void btAddSubject_Click(object sender, RoutedEventArgs e)
