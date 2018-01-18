@@ -26,14 +26,20 @@ namespace Quiztool
         public TeacherSubjectInfo(Subject subject = null)
         {
             this.subject = subject;
-            GetExams();
-            GetTopics();
+            // GetExams();
+            // GetTopics();
             InitializeComponent();
             this.tbName.Text = subject.Name;
             lblLoggedInAs.Content = "Ingelogd als: " + Main.User;
+            lbExams.ItemsSource = subject.Exams;
+            lbExams.SelectedIndex = 0;
+            lbTopics.ItemsSource = subject.Topics;
+            lbTopics.SelectedIndex = 0;
             popupAction = GoBack;
         }
 
+        /*
+         * Deze functies zijn overbodig.
         private void GetTopics()
         {
             // TO-DO: Find out if this is valid, or if a separate query is necessary (function for this already created in DBManager as GetTopics(Subject subject)
@@ -50,15 +56,17 @@ namespace Quiztool
 
         private void GetExams()
         {
+            List<Exam> exams = new List<Exam>();
             if (subject != null)
             {
                 foreach (Exam exam in subject.Exams)
                 {
-                    lbExams.Items.Add(exam);
+                    exams.Add(exam);
                 }
                 lbExams.SelectedIndex = 0;
             }
         }
+        */
 
         private void GoBack()
         {
@@ -136,9 +144,8 @@ namespace Quiztool
 
         private void lbExams_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            lblExamName.Content = ((Topic)lbExams.SelectedItem).Name;
-            lblTopicNQuestions.Content = ((Topic)lbTopics.SelectedItem).Questions.Count;
-            spExam.Children.Clear();
+            lblExamName.Content = ((Exam)lbExams.SelectedItem).Name;
+            // TO-DO: Vul overige info in.
         }
 
         private void btDeleteTopic_Click(object sender, RoutedEventArgs e)

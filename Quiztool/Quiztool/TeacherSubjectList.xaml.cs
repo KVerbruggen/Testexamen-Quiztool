@@ -24,6 +24,7 @@ namespace Quiztool
         {
             InitializeComponent();
             lblLoggedInAs.Content = "Ingelogd als: " + Main.User;
+            LoadSubjects();
         }
 
         private void LoadSubjects()
