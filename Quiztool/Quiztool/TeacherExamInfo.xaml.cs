@@ -29,6 +29,8 @@ namespace Quiztool
             InitializeComponent();
             lblLoggedInAs.Content = "Ingelogd als: " + Main.User;
             lblQuestionsInTopics.Content = "Totaal aantal vragen in onderwerpen: " + exam.GetTotalQuestions();
+
+            // TO-DO: Laad onderwerpen in Datagrid
         }
 
         private void ForceNumberInput(object sender, TextCompositionEventArgs e)
@@ -54,6 +56,16 @@ namespace Quiztool
         private void btDone_Click(object sender, RoutedEventArgs e)
         {
             ((NavigationWindow)Application.Current.MainWindow).Navigate(new TeacherSubjectInfo(exam.Subject));
+        }
+
+        private void btAddTopic_Click(object sender, RoutedEventArgs e)
+        {
+            // TO-DO
+        }
+
+        private void btRemoveTopic_Click(object sender, RoutedEventArgs e)
+        {
+            // TO-DO
         }
     }
 }

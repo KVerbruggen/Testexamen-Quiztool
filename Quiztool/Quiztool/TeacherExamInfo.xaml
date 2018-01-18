@@ -49,9 +49,17 @@
         <TextBox x:Name="tbTimelimit" Grid.Row="6" Grid.Column="2" Height="23" VerticalAlignment="Top" TextWrapping="NoWrap" Margin="0,0,10,0" PreviewTextInput="ForceNumberInput"/>
         <Label Grid.Row="7" Grid.Column="1" Content="Minimumscore: " Height="30" VerticalAlignment="Top" FontSize="12"/>
         <TextBox x:Name="tbMinimumscore" Grid.Row="7" Grid.Column="2" Height="23" VerticalAlignment="Top" TextWrapping="NoWrap" Margin="0,0,10,0" PreviewTextInput="ForceNumberInput"/>
-        <Label x:Name="lblQuestionsInTopics" Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2" VerticalAlignment="Top" FontSize="12" />
-        
+        <Label x:Name="lblQuestionsInTopics" Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2" VerticalAlignment="Top" FontSize="12" Content="Onderwerpen:"/>
+        <DataGrid x:Name="dgExamTopics" Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="2" Width="Auto" Height="Auto" MinHeight="100">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Onderwerp" Binding="{Binding TopicName}" Width="*" IsReadOnly="True" />
+                <DataGridTextColumn Header="Aantal vragen" Binding="{Binding NumberOfQuestions}" Width="*" IsReadOnly="False"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Grid.Column="3" Grid.Row="9" Margin="10,0,0,0">
+            <Button x:Name="btAddTopic"  VerticalAlignment="Top" HorizontalAlignment="Left" Content="Voeg toe" Width="Auto" Padding="5,0" Height="30" Margin="0,0,0,0" Background="#FF51A8FF" BorderBrush="#FF3C7EC0" BorderThickness="1" Foreground="#FFFFFF" FontWeight="Bold" Click="btAddTopic_Click"/>
+            <Button x:Name="btRemoveTopic" VerticalAlignment="Top" HorizontalAlignment="Left" Content="Verwijder" Width="Auto" Padding="5,0" Height="30" Margin="0,10,0,0" Background="#FF51A8FF" BorderBrush="#FF3C7EC0" BorderThickness="1" Foreground="#FFFFFF" FontWeight="Bold" Click="btRemoveTopic_Click"/>
+        </StackPanel>
         <Button x:Name="btDone" Content="Klaar" Height="30" VerticalAlignment="Top" Margin="25,5,25,0" Background="#FF51A8FF" BorderBrush="#FF3C7EC0" BorderThickness="1" Foreground="#FFFFFF" FontWeight="Bold" Click="btDone_Click" Grid.Column="2" Grid.Row="1"/>
-        
     </Grid>
 </Page>
