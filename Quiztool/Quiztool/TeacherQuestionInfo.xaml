@@ -36,7 +36,7 @@
         <TextBox x:Name="tbCodeblock" Grid.Row="3" Grid.Column="1" Margin="10,10,10,10" MinHeight="100"/>
         <WrapPanel Grid.Row="4">
             <Label Content="Vraagtype:" Height="30" VerticalAlignment="Top" FontWeight="Bold" Margin="10,0,0,0"/>
-            <ComboBox x:Name="cbQuestionType" SelectedIndex="0" SelectionChanged="cbQuestionType_SelectionChanged">
+            <ComboBox x:Name="cbQuestionType" SelectionChanged="cbQuestionType_SelectionChanged">
                 <ComboBoxItem>Open vraag</ComboBoxItem>
                 <ComboBoxItem>Multiple choice</ComboBoxItem>
             </ComboBox>
@@ -45,13 +45,11 @@
             <TextBox x:Name="tbOpenAnswer"  Margin="10,10,10,0" MinHeight="50" HorizontalAlignment="Stretch" />
             <Label Content="Splits meerdere correcte antwoorden met een komma" Margin="10,0,0,0"/>
         </StackPanel>
-        <Border x:Name="divMultipleChoice" Grid.Row="5" BorderBrush="#FF3C7EC0" BorderThickness="1" Margin="10,10,10,10" Visibility="Hidden">
-            <StackPanel x:Name="spMultipleChoice">
+        <Border x:Name="divMultipleChoice" Grid.Row="5" BorderBrush="#FF3C7EC0" BorderThickness="1" Margin="10,10,10,10" Visibility="Visible">
+            <StackPanel>
                 <Label Content="Vink de correcte antwoorden aan"/>
-                <WrapPanel>
-                    <CheckBox x:Name="chkAnswer1" VerticalAlignment="Center" Margin="10,10,10,10"/>
-                    <TextBox x:Name="tbAnswer1" Margin="0,0,0,0" VerticalAlignment="Center">Test</TextBox>
-                </WrapPanel>
+                <StackPanel x:Name="spMultipleChoice">
+                </StackPanel>
             </StackPanel>
         </Border>
         <StackPanel x:Name="spMultipleChoiceControls" Grid.Row="5" Grid.Column="1" Visibility="Hidden">

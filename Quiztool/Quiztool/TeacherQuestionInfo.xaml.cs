@@ -26,21 +26,23 @@ namespace Quiztool
         {
             this.question = question;
             InitializeComponent();
-            cbQuestionType.ItemsSource = typeof(QuestionType).GetEnumNames();
+            if (question.QuestionTypeEnum == QuestionType.Open)
+            {
+                cbQuestionType.SelectedIndex = 0;
+            }
+            else
+            {
+                cbQuestionType.SelectedIndex = 1;
+            }
             lblLoggedInAs.Content = "Ingelogd als: " + Main.User;
+            RefreshAnswers();
         }
 
         private void RefreshAnswers()
         {
             if (question.QuestionTypeEnum == QuestionType.Closed)
             {
-                foreach (UIElement e in spMultipleChoice.Children)
-                {
-                    if (e.GetType() == typeof(StackPanel))
-                    {
-                        spMultipleChoice.Children.Remove(e);
-                    }
-                }
+                spMultipleChoice.Children.Clear();
                 int i = 0;
                 foreach (Answer answer in question.Answers)
                 {
@@ -50,12 +52,24 @@ namespace Quiztool
                         VerticalAlignment = VerticalAlignment.Center,
                         Margin = new Thickness(10)
                     };
+                    string answerText = "";
+                    if (answer.AnswerText == String.Empty)
+                    {
+                        answerText = "Antwoord " + (i+1);
+                    }
+                    else
+                    {
+                        answerText = answer.AnswerText;
+                    }
                     TextBox tbAnswer = new TextBox()
                     {
                         Name = "tbAnswer" + i,
+                        HorizontalAlignment = HorizontalAlignment.Stretch,
+                        Width = Double.NaN, // Width 'auto' is Double.NaN
+                        MinWidth = 200,
                         VerticalAlignment = VerticalAlignment.Center,
                         Margin = new Thickness(10),
-                        Text = answer.AnswerText
+                        Text = answerText
                     };
                     wpAnswer.Children.Add(cbAnswer);
                     wpAnswer.Children.Add(tbAnswer);
@@ -110,19 +124,20 @@ namespace Quiztool
 
         private void cbQuestionType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            switch (cbQuestionType.SelectedItem)
+            switch (((ComboBoxItem)cbQuestionType.SelectedItem).Content)
             {
                 case "Open vraag":
                     spOpenAnswer.Visibility = Visibility.Visible;
                     divMultipleChoice.Visibility = Visibility.Hidden;
                     spMultipleChoiceControls.Visibility = Visibility.Hidden;
                     break;
-                case "Multiple choice:":
-                default:
+                case "Multiple choice":
                     ProcessOpenAnswers();
                     spOpenAnswer.Visibility = Visibility.Hidden;
                     divMultipleChoice.Visibility = Visibility.Visible;
                     spMultipleChoiceControls.Visibility = Visibility.Visible;
+                    break;
+                default:
                     break;
             }
         }

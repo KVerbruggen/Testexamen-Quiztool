@@ -24,9 +24,7 @@
         <Label x:Name="lblLoggedInAs" Content="Ingelogd als: " Grid.Column="1" HorizontalAlignment="Right" Margin="10,10,70,0" VerticalAlignment="Top" Width="Auto" HorizontalContentAlignment="Right"/>
         <DockPanel Grid.ColumnSpan="2" Height="Auto" LastChildFill="False" Grid.Row="1" VerticalAlignment="Top" Width="400" HorizontalAlignment="Center">
             <Label DockPanel.Dock="Top" Content="Vakken" Height="30" VerticalAlignment="Top" FontWeight="Bold" FontSize="16"/>
-            <Border DockPanel.Dock="Left" VerticalAlignment="Top" Width="290" BorderBrush="#FF212121" BorderThickness="1" HorizontalAlignment="Left" Height="300" Margin="0,0,0,0">
-                <ListBox x:Name="lbSubjects"/>
-            </Border>
+            <ListBox x:Name="lbSubjects" DockPanel.Dock="Left" VerticalAlignment="Top" Width="290" HorizontalAlignment="Left" Height="300" Margin="0,0,0,0"/>
             <StackPanel DockPanel.Dock="Right" Height="Auto" VerticalAlignment="Top" Grid.Column="1" Grid.Row="1">
                 <Button x:Name="btManageSubject" Content="Beheer Vak" Width="100" Height="30" VerticalAlignment="Top" Margin="0,0,0,10" Background="#FF51A8FF" BorderBrush="#FF3C7EC0" Foreground="#FFFFFF" FontWeight="Bold" Click="btManageSubject_Click"/>
                 <Button x:Name="btAddSubject" Content="Voeg Vak Toe" Width="100" Height="30" VerticalAlignment="Top" Margin="0,0,0,10" Background="#FF51A8FF" BorderBrush="#FF3C7EC0" Foreground="#FFFFFF" FontWeight="Bold" Click="btAddSubject_Click"/>
